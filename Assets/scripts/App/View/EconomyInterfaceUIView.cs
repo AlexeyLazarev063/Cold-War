@@ -68,6 +68,7 @@ public class EconomyInterfaceUIView : MonoBehaviour
         _expenseTabBackground.color = _freeColor;
         _summaryTabBackground.color = _freeColor;
         ShowIncomeSettings();
+        _scrollRect.verticalNormalizedPosition = 1;
         selectedTab = 1;
     }
 
@@ -78,6 +79,7 @@ public class EconomyInterfaceUIView : MonoBehaviour
         _expenseTabBackground.color = _selectColor;
         _summaryTabBackground.color = _freeColor;
         ShowExpenseSettings();
+        _scrollRect.verticalNormalizedPosition = 1;
         selectedTab = 2;
     }
 
