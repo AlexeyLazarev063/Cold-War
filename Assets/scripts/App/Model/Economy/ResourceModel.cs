@@ -32,4 +32,9 @@ public class ResourceModel
         _workersNeed = workersNeed;
         _costPrice = costPrice;
     }
+
+    public void ChangeProduction(float production)
+    { 
+        _production += production;
+    }
 }

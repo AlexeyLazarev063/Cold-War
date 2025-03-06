@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class IncomeModel
 {
+    public int Id { get { return _id; } }
     public int Tax { get { return _tax; } }
     public string Name { get { return _name; } }
-    public int Id { get { return _id; } }
     public IndustryModel IndustryModel { get { return _industryModel; } }
     public int ModifiedTax { get { return _modifiedTax; } set { _modifiedTax = value; } }
 

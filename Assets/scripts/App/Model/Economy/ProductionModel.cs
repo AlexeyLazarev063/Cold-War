@@ -40,4 +40,34 @@ public class ProductionModel
             _resourceModels.Add(goods);
         }
     }
+
+    public void ChangeResourceProduction(int resourceId, int expense, float inflation, float corruption)
+    {
+        float investment = expense * (1 - inflation / 100) * (1 - corruption / 100); //Пока хз
+        ResourceModel resourceModel = GetResourceModelById(resourceId);
+        
+        float change = (float) (investment / (resourceModel.Production * resourceModel.CostPrice));
+            //Рост потребления людских ресурсов и электричества
+        if (change > 1)
+        {
+        } else if (change == 1)
+        {
+        } else
+        {
+            change = ((resourceModel.Production * resourceModel.CostPrice) - investment * (1 - change)) * -1;
+        }
+        resourceModel.ChangeProduction((float) ((1 + change / 100) * resourceModel.Production));
+    }
+
+    public ResourceModel GetResourceModelById(int resourceId)
+    {
+        foreach(ResourceModel resourceModel in _resourceModels)
+        {
+            if (resourceModel.Id == resourceId)
+            {
+                return resourceModel;
+            }
+        }
+        return null;
+    }
 }

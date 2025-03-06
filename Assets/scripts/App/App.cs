@@ -37,7 +37,7 @@ public class App
             _context.Register(dateModel);
 
             EconomyController economyController = new EconomyController(economyModel, _gameInterfaceUIView, _economyInterfaceUIView);
-            StepController stepController = new StepController(economyModel, stepModel, pointsModel, dateModel, _gameInterfaceUIView);
+            StepController stepController = new StepController(economyModel, stepModel, pointsModel, dateModel, productionModel, _gameInterfaceUIView);
 
             _context.Register(economyController);
 

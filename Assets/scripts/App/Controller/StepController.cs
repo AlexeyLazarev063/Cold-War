@@ -13,15 +13,17 @@ public class StepController
     private StepModel _stepModel;
     private PointsModel _pointsModel;
     private DateModel _dateModel;
+    private ProductionModel _productionModel;
 
     private GameInterfaceUIView _gameInterfaceUIView;
 
-    public StepController(EconomyModel economy, StepModel stepModel, PointsModel pointsModel, DateModel dateModel, GameInterfaceUIView gameInterfaceUIView)
+    public StepController(EconomyModel economy, StepModel stepModel, PointsModel pointsModel, DateModel dateModel, ProductionModel productionModel, GameInterfaceUIView gameInterfaceUIView)
     {
         _economyModel = economy;
         _stepModel = stepModel;
         _pointsModel = pointsModel;
         _dateModel = dateModel;
+        _productionModel = productionModel;
 
         _gameInterfaceUIView = gameInterfaceUIView;
     }
@@ -52,5 +54,10 @@ public class StepController
         _pointsModel.AddMoney(_economyModel.getProfit());
         _stepModel.AddStep();
         _dateModel.NextDate(_stepModel.StepNumber);
+        foreach (ResourceModel resourceModel in _productionModel.ResourceModels)
+        {
+            int Expense = _economyModel.GetExpenseByResourceId(resourceModel.Id);
+            _productionModel.ChangeResourceProduction(resourceModel.Id, Expense, _pointsModel.Inflation, _pointsModel.Corruption);   
+        }
     }
 }

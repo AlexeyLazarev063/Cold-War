@@ -9,9 +9,11 @@ public class EconomyModel
 
     public List<IncomeModel> IncomeModels {get {return _incomeModels;} }
     public List<ExpenseModel> ExpenseModels { get {return _expenseModels;} }
+    public List<ExpenseOnResourceProductionModel> ExpenseOnResourceProductionModel { get { return _expenseOnResourceProductionModel; } }
 
     private List<IncomeModel> _incomeModels = new List<IncomeModel> ();
     private List<ExpenseModel> _expenseModels = new List<ExpenseModel> ();
+    private List<ExpenseOnResourceProductionModel> _expenseOnResourceProductionModel = new List<ExpenseOnResourceProductionModel> ();
 
     public Context Context { get; private set; }
 
@@ -57,18 +59,34 @@ public class EconomyModel
             _incomeModels.Add(UnknownTax);
             _incomeModels.Add(TradeProfitTax);
 
-            ExpenseModel NationalEconomy = new ExpenseModel(1, "Народное хозяйство", 6208);
-            ExpenseModel Defense = new ExpenseModel(2, "Оборона", 1492);
-            ExpenseModel Managment = new ExpenseModel(3, "Управление", 142);
-            ExpenseModel Education = new ExpenseModel(4, "Просвещение", 1517);
-            ExpenseModel Science = new ExpenseModel(5, "Наука", 550);
-            ExpenseModel Health = new ExpenseModel(6, "Здравохранение", 767);
-            ExpenseModel SocialProtection = new ExpenseModel(7, "Социальное обеспечение", 1059);
-            ExpenseModel SocialInsurancePayments = new ExpenseModel(8, "Социальное страхование (выплаты)", 642);
-            ExpenseModel Propaganda = new ExpenseModel(9, "Пропаганда", 167);
-            ExpenseModel NationalSecurity = new ExpenseModel(10, "Спецслужбы", 334);
+            ExpenseModel OilProductionExpense = new ExpenseModel(1, "Добыча нефти", 875);
+            ExpenseModel GazProductionExpense = new ExpenseModel(2, "Добыча газа", 375);
+            ExpenseModel FoodProductionExpense = new ExpenseModel(3, "Пищевая промышленность", 1042);
+            ExpenseModel GoldProductionExpense = new ExpenseModel(4, "Добыча золота", 125);
+            ExpenseModel MetalProductionExpense = new ExpenseModel(5, "Производство металла", 875);
+            ExpenseModel EnergyProductionExpense = new ExpenseModel(6, "Производство электроэнергии", 750);
+            ExpenseModel GoodsProductionExpense = new ExpenseModel(7, "Производство прочих товаров", 1600);
+            ExpenseModel CoalProductionExpense = new ExpenseModel(8, "Добыча угля", 375);
+            ExpenseModel ForestProductionExpense = new ExpenseModel(9, "Лесная промышленность", 125);
+            ExpenseModel Defense = new ExpenseModel(10, "Оборона", 1492);
+            ExpenseModel Managment = new ExpenseModel(11, "Управление", 142);
+            ExpenseModel Education = new ExpenseModel(12, "Просвещение", 1517);
+            ExpenseModel Science = new ExpenseModel(13, "Наука", 550);
+            ExpenseModel Health = new ExpenseModel(14, "Здравохранение", 767);
+            ExpenseModel SocialProtection = new ExpenseModel(15, "Социальное обеспечение", 1059);
+            ExpenseModel SocialInsurancePayments = new ExpenseModel(16, "Социальное страхование (выплаты)", 642);
+            ExpenseModel Propaganda = new ExpenseModel(17, "Пропаганда", 167);
+            ExpenseModel NationalSecurity = new ExpenseModel(18, "Спецслужбы", 334);
 
-            _expenseModels.Add(NationalEconomy);
+            _expenseModels.Add(OilProductionExpense);
+            _expenseModels.Add(GazProductionExpense);
+            _expenseModels.Add(FoodProductionExpense);
+            _expenseModels.Add(GoldProductionExpense);
+            _expenseModels.Add(MetalProductionExpense);
+            _expenseModels.Add(EnergyProductionExpense);
+            _expenseModels.Add(GoodsProductionExpense);
+            _expenseModels.Add(CoalProductionExpense);
+            _expenseModels.Add(ForestProductionExpense);
             _expenseModels.Add(Defense);
             _expenseModels.Add(Managment);
             _expenseModels.Add(Education);
@@ -78,6 +96,26 @@ public class EconomyModel
             _expenseModels.Add(SocialInsurancePayments);
             _expenseModels.Add(Propaganda);
             _expenseModels.Add(NationalSecurity);
+
+            ExpenseOnResourceProductionModel Oil = new ExpenseOnResourceProductionModel(1, 1);
+            ExpenseOnResourceProductionModel Gaz = new ExpenseOnResourceProductionModel(2, 2);
+            ExpenseOnResourceProductionModel Gold = new ExpenseOnResourceProductionModel(3, 4);
+            ExpenseOnResourceProductionModel Metal = new ExpenseOnResourceProductionModel(4, 5);
+            ExpenseOnResourceProductionModel Food = new ExpenseOnResourceProductionModel(5, 3);
+            ExpenseOnResourceProductionModel Electricity = new ExpenseOnResourceProductionModel(6, 6);
+            ExpenseOnResourceProductionModel Coal = new ExpenseOnResourceProductionModel(7, 8);
+            ExpenseOnResourceProductionModel Forest = new ExpenseOnResourceProductionModel(8, 9);
+            ExpenseOnResourceProductionModel Goods = new ExpenseOnResourceProductionModel(9, 7);
+
+            _expenseOnResourceProductionModel.Add(Oil);
+            _expenseOnResourceProductionModel.Add(Gaz);
+            _expenseOnResourceProductionModel.Add(Gold);
+            _expenseOnResourceProductionModel.Add(Metal);
+            _expenseOnResourceProductionModel.Add(Food);
+            _expenseOnResourceProductionModel.Add(Electricity);
+            _expenseOnResourceProductionModel.Add(Coal);
+            _expenseOnResourceProductionModel.Add(Forest);
+            _expenseOnResourceProductionModel.Add(Goods);
         }
     }
 
@@ -152,5 +190,18 @@ public class EconomyModel
         {
             expenseModel.ResetChanges();
         }
+    }
+
+    public int GetExpenseByResourceId(int resourceId)
+    {
+        foreach (ExpenseOnResourceProductionModel expenseOnResourceProductionModel in _expenseOnResourceProductionModel)
+        {
+            if (expenseOnResourceProductionModel.ResourceId == resourceId)
+            {
+                ExpenseModel ExpenseModel = getExpenseModelById(expenseOnResourceProductionModel.ExpenseId);
+                return ExpenseModel.Expense;
+            }
+        }
+        return 0;
     }
 }

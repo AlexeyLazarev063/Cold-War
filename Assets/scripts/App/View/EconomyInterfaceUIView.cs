@@ -90,6 +90,7 @@ public class EconomyInterfaceUIView : MonoBehaviour
         _expenseTabBackground.color = _freeColor;
         _summaryTabBackground.color = _selectColor;
         ShowSummary();
+        selectedTab = 3;
     }
 
     private void ApplyChanges_OnClicked()
@@ -140,7 +141,20 @@ public class EconomyInterfaceUIView : MonoBehaviour
     private void OpenEconomyPanel_OnClicked()
     {
         ResetContent();
-        ShowIncomeSettings();
+        if (selectedTab == 1)
+        {
+            ShowIncomeSettings();
+        }
+        else if (selectedTab == 2)
+        {
+
+            ShowExpenseSettings();
+        }
+        else
+        {
+            ShowSummary();
+        }
+        //ShowIncomeSettings();
         _scrollRect.verticalNormalizedPosition = 1;
         _economyPanel.SetActive(true);
     }
